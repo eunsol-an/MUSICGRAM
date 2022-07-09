@@ -1,0 +1,98 @@
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.wrap {
+    width: 618px;
+    margin: auto;
+}
+
+.header {
+    padding: 100px 0 50px 20px;
+}
+
+.nav {
+    margin-bottom: 20px;
+}
+
+.nav-link {
+    color: gray;
+}
+
+.form {
+    width: 588px;
+    margin: 0 15px 30px 15px;
+}
+
+.posting-help {
+    margin-bottom: 30px;
+}
+
+.btn-melon {
+    padding: 0 4px 0 4px;
+}
+
+.card {
+    display: inline-flex;
+    align-items: center;
+    width: 206px;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-text {
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.desc {
+    color: gray;
+    font-size: 15px;
+}
+
+.btn-h {
+    display: block;
+    margin: auto;
+}
+
+.table {
+    margin-top: 50px;
+}
+
+.date {
+    margin-left: 10px;
+}
+
+.underline {
+    margin: 20px 0 100px 0;
+}
+
+#topbtn {
+    position: fixed;
+    right: 30%;
+    bottom: 50px;
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .wrap {
+        width: 375px;
+    }
+
+    .card {
+        width: 187px;
+    }
+
+    .form {
+        width: 345px;
+    }
+
+    #topbtn {
+        right: 15%;
+    }
+}
