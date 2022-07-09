@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>HOME | MUSICGRAM</title>
+
+    <meta property="og:title" content="MUSICGRAM | 뮤직그램" />
+    <meta property="og:description" content="당신의 인생곡은 무엇인가요?" />
+    <meta property="og:image" content="{{ url_for('static', filename='ogimage.png') }}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/mgstyle.css">
+
+</head>
+<body>
+
+    <div class="wrap">
+        <!--HEADER-->
+        <div class="header">
+            <a href="/" title="인생곡 찾기 프로젝트!" style="color: black"><h1 style="display: inline">MUSICGRAM
+                <a href="https://www.genie.co.kr/" target="_blank" title="genie" class="btn btn-light btn-sm"
+                   role="button">♫</a>
+            </h1></a>
+            <p class="desc">당신의 인생곡은 무엇인가요?</p>
+        </div>
+        <!--NAVIGATION-->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" href="/" role="tab"
+                   aria-controls="home" aria-selected="true">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" onclick="openclose()"
+                   aria-controls="profile" aria-selected="false">Post</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" href="/talk" role="tab"
+                   aria-controls="contact" aria-selected="false">Talk</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"></div>
+            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="form" id="post-box" style="display: none">
+                    <div class="form-group">
+                        <small class="form-text text-muted posting-help">♫ MUSICGRAM 포스팅 하는 법<br><br>
+                            1) <a href="https://www.genie.co.kr/" target="_blank" title="genie"
+                                  class="btn btn-light btn-sm btn-melon"
+                                  role="button">♫</a> 버튼을 눌러 지니로 이동합니다.<br>
+                            2) 나의 인생곡을 검색하고, 해당 페이지의 URL(주소)을 복사해주세요.<br>
+                            3) 복사해 온 URL(주소)을 아래 '지니 곡 정보 URL'에 붙여넣기 하면 끝!</small>
+                        <label for="post-url">지니 곡 정보 URL</label>
+                        <input type="email" class="form-control" id="post-url" aria-describedby="emailHelp"
+                               placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="post-comment">짧은 글귀</label>
+                        <textarea class="form-control" id="post-comment" rows="3" style="resize: none" maxlength="15"
+                                  placeholder="15자 내외로 입력해주세요."></textarea>
+                        <small class="form-text text-muted">함께 듣고 싶은 이유를 자유롭게 적어주세요.</small>
+                        <small class="form-text text-muted">앨범 사진을 클릭하면 곡 정보를 알 수 있어요.(소곤소곤)</small>
+                    </div>
+                    <button type="submit" class="btn btn-light" onclick="postAlbum()">남기기</button>
+                </div>
+            </div>
+        </div>
+        <!--POST-->
+        <div class="cards" id="cards-box"></div>
+        <!--FOOTER-->
+        <hr>
+        <p style="color: gray"><small>E-mail : dev.eunsol@gmail.com | 피드백은 언제나 환영입니다!
+        <a href="https://oneul-losnue.tistory.com/" target="_blank" title="Blog" class="btn btn-light btn-sm" role="button">☺</a></small></p>
+        <div class="underline"></div>
+        <div>
+            <span id="topbtn"><button type="button" class="btn btn-info">TOP</button></span>
+        </div>
+    </div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        showAlbum();
+    });
+
+    function openclose() {
+        if ($('#post-box').css('display') == 'block') {
+            $('#post-box').hide();
+        } else {
+            $('#post-box').show();
+        }
+    }
+
+    function postAlbum() {
+        if ($('#post-url').val() == '') {
+            alert('지니 곡 정보 URL을 입력하세요!');
+            return false;
+        }
+        if ($('#post-comment').val() == '') {
+            alert('글귀를 입력하세요!');
+            return false;
+        } else {
+            let url = $('#post-url').val();
+            let comment = $('#post-comment').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/album",
+                data: {url_give: url, comment_give: comment},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+
+            })
+        }
+    }
+
+    function showAlbum() {
+        $.ajax({
+            type: "GET",
+            url: "/album",
+            data: {},
+            success: function (response) {
+                let albums = response['all_albums']
+                for (let i = 0; i < albums.length; i++) {
+                    let title = albums[i]['title']
+                    let image = albums[i]['image']
+                    let url = albums[i]['url']
+                    let comment = albums[i]['comment']
+                    let like = albums[i]['like']
+
+                    let temp_html = `<div class="card">
+                                        <a href="${url}" title="${title}" target="_blank">
+                                            <img class="card-img-top"
+                                                 src="${image}"
+                                                 alt="Card image cap"></a>
+                                        <div class="card-body">
+                                            <p class="card-text"><small class="text-muted">
+                                                <button type="button" class="btn btn-outline-danger btn-sm btn-h" onclick="likeAlbum('${title}')">♥ ${like}</button>
+                                                ${comment}</small></p>
+                                        </div>
+                                    </div>`
+                    $('#cards-box').append(temp_html);
+                }
+            }
+        })
+    }
+
+    function likeAlbum(title) {
+        $.ajax({
+            type: "POST",
+            url: "/album/like",
+            data: {title_give:title},
+            success: function (response) {
+                alert(response['msg']);
+                window.location.reload();
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
